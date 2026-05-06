@@ -1,11 +1,13 @@
-📱 ViewModelLiveDataDemoEnrichi
+#📱 ViewModelLiveDataDemoEnrichi
 
 Application Android démontrant la gestion moderne des données avec ViewModel + LiveData (Jetpack) et la différence avec l’approche classique.
 
-🚀 Objectifs
+#🚀 Objectifs
+
 Comprendre pourquoi les données sont perdues lors d’une rotation d’écran
 Explorer les limites de onSaveInstanceState()
 Maîtriser :
+
 ViewModel (persistance des données)
 LiveData (mise à jour automatique de l’UI)
 Appliquer l’architecture MVVM
@@ -14,7 +16,9 @@ Rotation écran
 Changement de thème
 Process death
 Thread background
-🧠 Concepts clés
+
+#🧠 Concepts clés
+
 LifecycleOwner : Activity/Fragment qui possède un cycle de vie
 ViewModelStore : stocke les ViewModels
 ViewModel : survit aux rotations
@@ -25,7 +29,8 @@ LiveData → lecture seule (UI)
 setValue() vs postValue() :
 setValue → thread principal
 postValue → thread background
-🏗️ Architecture
+
+#🏗️ Architecture
 
 MVVM (Model - View - ViewModel)
 
@@ -34,29 +39,36 @@ Activity (View)
 LiveData
     ↓
 ViewModel (logique métier)
-⚙️ Configuration
+
+#⚙️ Configuration
 Langage : Java
 Minimum SDK : API 24
 Jetpack Lifecycle : 2.10.0
-📦 Dépendances
+
+#📦 Dépendances
 def lifecycle_version = "2.10.0"
 
 implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
 implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
-🖥️ Interface
+
+#🖥️ Interface
 Affichage du compteur
 Boutons :
 ➕ INCRÉMENTER
 ➖ DÉCRÉMENTER
 🔄 RÉINITIALISER
-🔴 Partie 1 : Version classique (problème)
+
+#🔴 Partie 1 : Version classique (problème)
 Variable locale dans Activity :
 private int count = 0;
+
 ❌ Problèmes :
 Perte des données lors de rotation
 Gestion manuelle avec onSaveInstanceState
 Code peu maintenable
-🟢 Partie 2 : Version moderne (solution)
+
+#🟢 Partie 2 : Version moderne (solution)
+
 ✅ ViewModel
 public class CounterViewModel extends ViewModel {
     private final MutableLiveData<Integer> count = new MutableLiveData<>(0);
@@ -73,12 +85,14 @@ public class CounterViewModel extends ViewModel {
 viewModel.getCount().observe(this, value -> {
     tvCount.setText(String.valueOf(value));
 });
+
 ✅ Résultat
 Données conservées après rotation ✔️
 UI mise à jour automatiquement ✔️
 Code propre (MVVM) ✔️
 Aucun memory leak ✔️
-🧪 Tests réalisés
+
+#🧪 Tests réalisés
 Test	Résultat
 Rotation écran	✅ Données conservées
 Changement thème	✅ OK
@@ -91,13 +105,14 @@ SavedStateHandle (persistance avancée)
 
 Permet de conserver les données même après kill du processus.
 
-📊 Comparaison
+#📊 Comparaison
 Critère	Classique	ViewModel
 Rotation	❌	✅
 UI auto	❌	✅
 Lifecycle-aware	❌	✅
 Code propre	❌	✅
-🎯 Conclusion
+
+#🎯 Conclusion
 
 Avec ViewModel + LiveData, on obtient :
 
@@ -108,7 +123,7 @@ Avec ViewModel + LiveData, on obtient :
 
 C’est la méthode recommandée par Google (Jetpack) et utilisée dans les applications professionnelles.
 
-📸 Aperçu
+#📸 Aperçu
 
 <img width="462" height="953" alt="lab18" src="https://github.com/user-attachments/assets/4b65bf13-b8f7-48cb-b5be-cacec0de3100" />
 
